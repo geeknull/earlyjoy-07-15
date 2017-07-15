@@ -32,10 +32,14 @@ export default class extends Component {
 
     return (
       <div className="page-wrap index-page">
-        <div className="user-info-wrap">
-          <img src={avatar}/>
-          <p className="user-name">{userName}</p>
-        </div>
+        {
+          userName ?
+            <div className="user-info-wrap">
+              <img src={avatar}/>
+              <p className="user-name">{userName}</p>
+            </div>
+            : <div>loading</div>
+        }
       </div>
     )
   }

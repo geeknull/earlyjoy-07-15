@@ -12,6 +12,7 @@ let ajax = (params) => {
 
     let xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(data);
     xhr.onload = () => {
       resolve(JSON.parse(xhr.responseText));
