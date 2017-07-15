@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {ajax} from '../../util/util.js';
 import {connect} from 'react-redux';
+import * as actions from '../../redux/actions/index.js';
 
 @connect((state) => ({
   myInfo: state.myInfo
-}))
+}), { ...actions })
 export default class extends Component {
   constructor() {
     super();
     this.state = {
-      myInfo: {}, // 个人信息
       myList: { // 个人状态的列表
         list: [], // 列表数据
         offset: 0, // 当前最后一个列表的下标
@@ -30,9 +30,10 @@ export default class extends Component {
       url: 'http://localhost:8333/api/myinfo',
       method: 'get'
     }).then(res => {
-      this.setState({
-        myInfo: res
-      })
+      this.props.setMyInfo(res);
+      // this.setState({
+      //   myInfo: res
+      // })
     }).catch(err => {
       debugger
     });
@@ -82,17 +83,14 @@ export default class extends Component {
   }
 
   render() {
-    // 我们的个人信息
+    // 我们的个人信息 从redux里面取出来的
     let { avatar, continued,
-      getupTime, rank, uid, userName } = this.state.myInfo;
+      getupTime, rank, uid, userName } = this.props.myInfo;
 
     let { list, hasMore, loading } = this.state.myList;
 
     return (
       <div className="page-wrap index-page">
-        <p>redux start</p>
-        {JSON.stringify(this.props.myInfo)}
-        <p>redux end</p>
         {
           userName ?
             <div className="user-info-wrap">
