@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {ajax} from '../../util/util.js';
+import {connect} from 'react-redux';
 
+@connect((state) => ({
+  myInfo: state.myInfo
+}))
 export default class extends Component {
   constructor() {
     super();
@@ -73,6 +77,10 @@ export default class extends Component {
     });
   }
 
+  componentWillUnmount () {
+    console.log('首页组件销毁');
+  }
+
   render() {
     // 我们的个人信息
     let { avatar, continued,
@@ -82,6 +90,9 @@ export default class extends Component {
 
     return (
       <div className="page-wrap index-page">
+        <p>redux start</p>
+        {JSON.stringify(this.props.myInfo)}
+        <p>redux end</p>
         {
           userName ?
             <div className="user-info-wrap">
