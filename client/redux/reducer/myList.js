@@ -3,6 +3,8 @@ import * as CONSTANTS from '../actionTypes.js';
 
 let defaultList = {
   list: [],
+  offset: 0,
+  limit: 10,
   hasMore: false,
   loading: false,
   isEmpty: false,
