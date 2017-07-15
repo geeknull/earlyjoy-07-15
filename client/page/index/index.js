@@ -26,7 +26,7 @@ export default class extends Component {
       debugger
     });
 
-    let { offset, limit } = this.state.myList;
+    let { offset, limit } = this.props.myList;
     // 获取个人状态列表
 
     // 请求之前 要将列表的状态置为loading状态
