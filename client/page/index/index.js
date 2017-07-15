@@ -4,7 +4,8 @@ import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/index.js';
 
 @connect((state) => ({
-  myInfo: state.myInfo
+  myInfo: state.myInfo,
+  myList: state.myList
 }), { ...actions })
 export default class extends Component {
   constructor() {
@@ -42,12 +43,15 @@ export default class extends Component {
     // 获取个人状态列表
 
     // 请求之前 要将列表的状态置为loading状态
-    this.setState({
-      myList: {
-        ...this.state.myList,
-        loading: true
-      }
-    });
+    // this.setState({
+    //   myList: {
+    //     ...this.state.myList,
+    //     loading: true
+    //   }
+    // });
+
+    // 设置列表loading态
+    this.props.setMyListLoading(true);
 
     ajax({
       url: 'http://localhost:8333/api/mylist',
@@ -55,25 +59,27 @@ export default class extends Component {
       data: { offset, limit }
     }).then(res => {
       // 1500ms之后 请求成功了
-      this.setState({
-        myList: {
-          list: res.list,
-          offset: res.list.length,
-          limit: 10,
-          hasMore: res.hasMore,
-          isEmpty: false,
-          loading: false,
-          isInit: true,
-        }
-      });
+      this.props.setMyList(res);
+      // this.setState({
+      //   myList: {
+      //     list: res.list,
+      //     offset: res.list.length,
+      //     limit: 10,
+      //     hasMore: res.hasMore,
+      //     isEmpty: false,
+      //     loading: false,
+      //     isInit: true,
+      //   }
+      // });
     }).catch(err => {
       // 请求失败了
-      this.setState({
+      this.props.setMyListLoading(false);
+      /*this.setState({
         myList: {
           ...this.state.myList,
           loading: false
         }
-      });
+      });*/
       debugger
     });
   }
@@ -87,7 +93,8 @@ export default class extends Component {
     let { avatar, continued,
       getupTime, rank, uid, userName } = this.props.myInfo;
 
-    let { list, hasMore, loading } = this.state.myList;
+    // let { list, hasMore, loading } = this.state.myList;
+    let { list, hasMore, loading } = this.props.myList;
 
     return (
       <div className="page-wrap index-page">
