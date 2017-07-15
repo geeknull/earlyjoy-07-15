@@ -9,6 +9,7 @@ let isDev = process.env.NODE_ENV === 'develop'; // 是否是开发环境
 
 module.exports = {
   entry: {
+    // 公用的包
     vendor: ['babel-polyfill', 'react', 'react-dom', 'redux', 'react-redux', 'react-router-dom'],
     main: './index.js',
     login: './page-single/login-page/login-page.jsx'
@@ -69,18 +70,22 @@ module.exports = {
       filename: '[name].bundle.js',
       minChunks: Infinity
     }),
+
+    // 首页的网页
     new HtmlWebpackPlugin({
       template: './template/index.html',
       filename: 'index.html',
       chunks: ['vendor', 'main'],
       inject: true
     }),
+
+    // 登陆页的网页
     new HtmlWebpackPlugin({
       template: './template/login.html',
       filename: 'login.html',
       chunks: ['vendor', 'login'],
       inject: true
-    })
+    }),
   ]
 };
 
