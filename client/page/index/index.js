@@ -10,17 +10,7 @@ import * as actions from '../../redux/actions/index.js';
 export default class extends Component {
   constructor() {
     super();
-    this.state = {
-      myList: { // 个人状态的列表
-        list: [], // 列表数据
-        offset: 0, // 当前最后一个列表的下标
-        limit: 10, // 每次请求加载的条数
-        hasMore: false, // 是否还有更多
-        isEmpty: false, // 是否为空
-        loading: false, // 是否在加载中状态
-        isInit: false, // 列表是否初始化
-      }
-    }
+    this.state = {}
   }
 
   componentDidMount() {
@@ -32,9 +22,6 @@ export default class extends Component {
       method: 'get'
     }).then(res => {
       this.props.setMyInfo(res);
-      // this.setState({
-      //   myInfo: res
-      // })
     }).catch(err => {
       debugger
     });
@@ -43,14 +30,6 @@ export default class extends Component {
     // 获取个人状态列表
 
     // 请求之前 要将列表的状态置为loading状态
-    // this.setState({
-    //   myList: {
-    //     ...this.state.myList,
-    //     loading: true
-    //   }
-    // });
-
-    // 设置列表loading态
     this.props.setMyListLoading(true);
 
     ajax({
@@ -60,26 +39,9 @@ export default class extends Component {
     }).then(res => {
       // 1500ms之后 请求成功了
       this.props.setMyList(res);
-      // this.setState({
-      //   myList: {
-      //     list: res.list,
-      //     offset: res.list.length,
-      //     limit: 10,
-      //     hasMore: res.hasMore,
-      //     isEmpty: false,
-      //     loading: false,
-      //     isInit: true,
-      //   }
-      // });
     }).catch(err => {
       // 请求失败了
       this.props.setMyListLoading(false);
-      /*this.setState({
-        myList: {
-          ...this.state.myList,
-          loading: false
-        }
-      });*/
       debugger
     });
   }
@@ -93,7 +55,6 @@ export default class extends Component {
     let { avatar, continued,
       getupTime, rank, uid, userName } = this.props.myInfo;
 
-    // let { list, hasMore, loading } = this.state.myList;
     let { list, hasMore, loading } = this.props.myList;
 
     return (
