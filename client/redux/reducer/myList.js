@@ -24,7 +24,7 @@ let myList = (state=defaultList, action) => {
         hasMore: action.hasMore,
         loading: false,
         isEmpty: newList.length === 0,
-        isInit: false
+        isInit: true
       });
     //  设置list的loading态
     case CONSTANTS.SET_MY_LIST_LOADING:

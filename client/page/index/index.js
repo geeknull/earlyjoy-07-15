@@ -17,33 +17,37 @@ export default class extends Component {
     // Node 服务器提供API接口
     // Node 服务器是8333端口
     // 发起获取个人信息的请求
-    ajax({
-      url: 'http://localhost:8333/api/myinfo',
-      method: 'get'
-    }).then(res => {
-      this.props.setMyInfo(res);
-    }).catch(err => {
-      debugger
-    });
+    if (!this.props.myInfo.userName) {
+      ajax({
+        url: 'http://localhost:8333/api/myinfo',
+        method: 'get'
+      }).then(res => {
+        this.props.setMyInfo(res);
+      }).catch(err => {
+        debugger
+      });
+    }
 
-    let { offset, limit } = this.props.myList;
-    // 获取个人状态列表
+    if (!this.props.myList.isInit) {
+      // 获取个人状态列表
+      let { offset, limit } = this.props.myList;
 
-    // 请求之前 要将列表的状态置为loading状态
-    this.props.setMyListLoading(true);
+      // 请求之前 要将列表的状态置为loading状态
+      this.props.setMyListLoading(true);
 
-    ajax({
-      url: 'http://localhost:8333/api/mylist',
-      method: 'post',
-      data: { offset, limit }
-    }).then(res => {
-      // 1500ms之后 请求成功了
-      this.props.setMyList(res);
-    }).catch(err => {
-      // 请求失败了
-      this.props.setMyListLoading(false);
-      debugger
-    });
+      ajax({
+        url: 'http://localhost:8333/api/mylist',
+        method: 'post',
+        data: { offset, limit }
+      }).then(res => {
+        // 1500ms之后 请求成功了
+        this.props.setMyList(res);
+      }).catch(err => {
+        // 请求失败了
+        this.props.setMyListLoading(false);
+        debugger
+      });
+    }
   }
 
   componentWillUnmount () {
