@@ -12,16 +12,23 @@ export default class extends Component {
   }
 
   componentDidMount() {
+    // 我们的store里面还没有用户信息的数据 就要发请求
+    // 说明我们直接访问的mine页面
     if (!this.props.myInfo.userName) {
       ajax({
         url: 'http://localhost:8333/api/myinfo',
         method: 'get'
       }).then(res => {
-        this.props.setMyInfo(res);
+        this.props.setMyInfo(res); // 设置我们store里面的myInfo节点
+        this.props.backupMyInfo(res); // 设置我们store里面的myInfoBackup节点
       }).
       catch(err => {
         debugger
       });
+    } else {
+      this.props.backupMyInfo(this.props.myInfo); // 将myInfo的数据 备份到myInfoBackup里面
+    //  我们store里面已经有用户信息的数据了
+    //  说明我们已经访问过了首页
     }
   }
 

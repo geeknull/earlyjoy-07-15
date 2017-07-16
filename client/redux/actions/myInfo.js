@@ -16,5 +16,15 @@ let modifyMyUserName = (userName) => {
   }
 };
 
+// 备份我的个人信息
+// 暂时不需要外面穿参数了
+let backupMyInfo = (myInfoBackup) => {
+  return {
+    type: CONSTANTS.BACKUP_MY_INFO,
+    myInfoBackup: myInfoBackup
+  }
+};
+
 export { setMyInfo }
 export { modifyMyUserName }
+export { backupMyInfo }
