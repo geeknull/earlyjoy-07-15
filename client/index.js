@@ -27,4 +27,5 @@ ReactDOM.render(
   </Provider>,
   document.querySelector('.doc')
 );
-import './style/index.less'
+import 'weui';
+import './style/index.less';

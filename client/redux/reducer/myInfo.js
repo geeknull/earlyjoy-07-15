@@ -11,13 +11,15 @@ import * as CONSTANTS from '../actionTypes.js';
         // obj.avatar = state.avatar;
         return Object.assign({}, state, {
           ...action.myInfo
-        })
+        });
+      case CONSTANTS.MODIFY_USER_NAME:
+        // 修改用户的姓名信息
+        return Object.assign({}, state, {
+          userName: action.userName
+        });
     }
 
     return state;
-  /*return {
-    x: 123
-  };*/
 };
 
 export default myInfo;
