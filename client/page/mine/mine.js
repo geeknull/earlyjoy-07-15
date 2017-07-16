@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/index.js';
 import {ajax} from '../../util/util.js';
+import Config from '../../config/index.js';
 
 @connect(state => ({
   myInfo: state.myInfo, // 将myInfo放到我们的props中
@@ -24,7 +25,7 @@ export default class extends Component {
     // 说明我们直接访问的mine页面
     if (!this.props.myInfo.userName) {
       ajax({
-        url: 'http://localhost:8333/api/myinfo',
+        url: `${Config.urlRequestPrefix}/api/myinfo`,
         method: 'get'
       }).then(res => {
         this.props.setMyInfo(res); // 设置我们store里面的myInfo节点

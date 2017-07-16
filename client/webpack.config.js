@@ -63,7 +63,9 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV':
-        isDev ? JSON.stringify('develop') : JSON.stringify('production')
+        isDev ? JSON.stringify('develop') : JSON.stringify('production'),
+      'process.env.abc': JSON.stringify('abc-inject'),
+      'xjxjxj': JSON.stringify('xjxjxj')
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',

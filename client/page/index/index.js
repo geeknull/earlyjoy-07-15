@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {ajax} from '../../util/util.js';
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions/index.js';
+import Config from '../../config/index.js';
+
+console.log(Config, 'xxx');
 
 @connect((state) => ({
   myInfo: state.myInfo,
@@ -19,7 +22,7 @@ export default class extends Component {
     // 发起获取个人信息的请求
     if (!this.props.myInfo.userName) {
       ajax({
-        url: 'http://localhost:8333/api/myinfo',
+        url: `${Config.urlRequestPrefix}/api/myinfo`,
         method: 'get'
       }).then(res => {
         this.props.setMyInfo(res);
@@ -36,7 +39,7 @@ export default class extends Component {
       this.props.setMyListLoading(true);
 
       ajax({
-        url: 'http://localhost:8333/api/mylist',
+        url: `${Config.urlRequestPrefix}/api/mylist`,
         method: 'post',
         data: { offset, limit }
       }).then(res => {
