@@ -25,6 +25,15 @@ let backupMyInfo = (myInfoBackup) => {
   }
 };
 
+// 恢复我们的数据
+let recoverMyinfo = (myInfoBackup) => {
+  return {
+    type: CONSTANTS.RECOVER_MY_INFO,
+    myInfoBackup: myInfoBackup
+  }
+};
+
 export { setMyInfo }
 export { modifyMyUserName }
 export { backupMyInfo }
+export { recoverMyinfo }

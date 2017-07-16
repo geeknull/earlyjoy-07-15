@@ -12,11 +12,16 @@ import * as CONSTANTS from '../actionTypes.js';
         return Object.assign({}, state, {
           ...action.myInfo
         });
+      // 修改用户的姓名信息
       case CONSTANTS.MODIFY_USER_NAME:
-        // 修改用户的姓名信息
         return Object.assign({}, state, {
           userName: action.userName
         });
+      // 恢复我们的信息
+      case CONSTANTS.RECOVER_MY_INFO:
+        return Object.assign({}, state, {
+          ...action.myInfoBackup
+        })
     }
 
     return state;
